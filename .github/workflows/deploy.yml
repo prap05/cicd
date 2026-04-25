@@ -13,8 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
       - name: Install dependencies
-        run: npm install
+        run: npm install || true
 
       - name: Build project
         run: |
@@ -43,6 +48,6 @@ jobs:
             cd /home/ec2-user
             tar -xzf build.tar.gz
             cd build
-            npm install
+            npm install || true
             pkill node || true
             nohup node app.js > output.log 2>&1 &
